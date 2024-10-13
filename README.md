@@ -14,3 +14,4 @@ and to start React EventManager:
 
 Also You can finde a complete React ptoject source file (in ./reactproject)
 
+Also presented static files from my site.
