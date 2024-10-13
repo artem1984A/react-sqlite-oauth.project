@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artem Ryzhov - Junior Front End Developer</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('/images/nodejs_cover.png'); /* Add your background image here */
+            background-size: cover; /* Cover the entire page */
+            background-position: center; /* Center the background image */
+            background-attachment: fixed; /* Make the background image fixed */
+            color: #fff; /* Set text color to white for better contrast */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ede1e1;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        .shadowOne {
+            box-shadow: 7px 11px 12px 0px rgba(0, 0, 0, 0.75);
+            -webkit-box-shadow: 7px 11px 12px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 7px 11px 12px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .shadowOne:active {
+            background-color: hsla(201, 45%, 62%, 0.7);
+        }
+
+        .shadowOne:hover {
+            background-color: hsla(201, 45%, 62%, 0.7);
+        }
+
+        /* Clock Styles */
+        #clock {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            /* Add shadow effect */
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: calc(100% - 22px);
+            /* Adjusted width to accommodate padding and border */
+            padding: 10px;
+            margin-bottom: 20px;
+            /* Increased margin for better spacing */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Hide the message div by default */
+        #message {
+            display: none;
+        }
+
+        /* Style for the button */
+        #triggerButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        /* Hover effect for the button */
+        #triggerButton:hover {
+            background-color: #0056b3;
+        }
+
+        /* Rounded Image Styles */
+        .rounded-img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 50%;
+            border: 5px solid #007bff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .rounded-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+    </style>
+</head>
+
+<body>
+    <center>
+        <img src="./images/nodepic.png" alt="Sample Image" class="rounded-img">
+    </center>
+
+    <div class="container">
+        <h1 id="welcomeMessage">Welcome to my personal site</h1>
+        <h1>Welcome to my personal site</h1>
+        <h2>Artem Ryzhov</h2>
+        <p>This site was creating to present me as a Node.js developer</p>
+        <p>This site and all its functional work at Node.js as server and MongoDB database. You can look and test projects presented in portfolio page. </p>
+        <p>Here you can explore my Node.js and others projects and get in touch if you'd like to collaborate!</p>
+        
+        <a href="/profile.html" class="cta-button">View Portfolio</a>
+        <a href="/message.html" class="cta-button">Contact me</a>
+
+
+        <div id="clock"></div>
+    </div>
+    <div id="mapholder"></div>
+
+    <div class="container">
+        <!-- Form -->
+        <form id="userForm" action="/submit" method="post">
+            <label for="name" style="color: #666">Name:</label>
+            <input class="shadowOne" type="text" id="name" name="name" required>
+
+            <label for="email" style="color: #666">Email:</label>
+            <input class="shadowOne" type="email" id="email" name="email" required>
+
+            <button type="submit" class="cta-button">Submit</button>
+        </form>
+    </div>
+    <!-- Message div -->
+    <div id="message"></div>
+
+
+    <!-- JavaScript for Clock -->
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+
+        // Initial call to display the clock immediately
+        updateClock();
+    </script>
+
+    <button id="triggerButton">All present users</button>
+
+    <script>
+        // Function to trigger the creation of anchor element and click it
+        function triggerAnchorClick() {
+            // Create an anchor element
+            const anchor = document.createElement('a');
+            anchor.href = '/fetch-and-render';
+
+            // Append the anchor element to the body (optional)
+            document.body.appendChild(anchor);
+
+            // Programmatically click the anchor element
+            anchor.click();
+        }
+
+        // Add click event listener to the button
+        document.getElementById('triggerButton').addEventListener('click', triggerAnchorClick);
+    </script>
+    <!-- Custom JavaScript -->
+    <script>
+        async function handleSubmit(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            // Serialize form data
+            const formData = new FormData(event.target);
+            const data = {};
+            for (const [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            // Send data to server
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.status === 409) {
+                    // If user already exists, display message in message div
+                    document.getElementById('message').innerText = alert('User already exists');
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error('Failed to submit data');
+                }
+                const name = data.name; // Get the value of the name field
+                // Clear form fields
+                event.target.reset();
+                // Optionally display success message or perform other actions
+
+                document.getElementById('message').innerText = alert(`${name}, your data was successfully saved`);
+                // Trigger the custom event after the second alert is closed
+                window.dispatchEvent(new Event('secondAlertClose'));
+
+            } catch (error) {
+                console.error('Error submitting data:', error);
+                // Handle error - display error message, retry submission, etc.
+            }
+        }
+
+        // Add event listener to form submit event
+        document.get        // Add event listener to form submit event
+        document.getElementById('userForm').addEventListener('submit', handleSubmit);
+
+        // Add event listener to window object to redirect after the second alert is closed
+        function handleSecondAlertClose() {
+            window.location.href = 'message.html'; // Replace with the URL you want to redirect to
+            // Remove the event listener after it's been triggered
+            window.removeEventListener('secondAlertClose', handleSecondAlertClose);
+        }
+
+        window.addEventListener('secondAlertClose', handleSecondAlertClose);
+    </script>
+    
+ <!-- JavaScript to fetch and display the welcome message -->
+ <script>
+    // Function to fetch and display the welcome message
+    async function fetchWelcomeMessage() {
+        try {
+            const response = await fetch('/welcome');
+            const message = await response.text();
+            document.getElementById('welcomeMessage').textContent = message;
+        } catch (error) {
+            console.error('Error fetching welcome message:', error);
+        }
+    }
+
+    // Call the function when the page loads
+    window.onload = fetchWelcomeMessage;
+</script>
+
+</body>
+
+</html>

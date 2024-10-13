@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample HTML Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+    <div class="container mx-auto">
+        <form action="/submitmesx" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <!-- Name Field -->
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+                <textarea id="name" name="name" rows="1"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    required></textarea>
+            </div>
+            <!-- Email Field -->
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                <textarea id="email" name="email" rows="1"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    required></textarea>
+            </div>
+            <!-- Message Field -->
+            <div class="mb-4">
+                <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Message:</label>
+                <textarea id="message" name="message" rows="4"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    required></textarea>
+            </div>
+            <!-- Submit Button -->
+            <div class="flex items-center justify-between">
+                <input type="submit" value="Submit"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer">
+            </div>
+        </form>
+        <!-- Link to Main Page -->
+        <a href="/index.html" class="cta-button">Go to main page</a>
+        <div id="demo"></div>
+    </div>
+    <script>
+        // Ensure the DOM is fully loaded before running the script
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the textarea elements
+            const nameTextarea = document.getElementById("name");
+            const emailTextarea = document.getElementById("email");
+            const messageTextarea = document.getElementById("message");
+
+            // Add event listeners to clear the textareas when they gain focus
+            nameTextarea.addEventListener("focus", function () {
+                nameTextarea.value = "";
+            });
+
+            emailTextarea.addEventListener("focus", function () {
+                emailTextarea.value = "";
+            });
+
+            messageTextarea.addEventListener("focus", function () {
+                messageTextarea.value = "";
+            });
+
+            // Display the hostname
+            document.getElementById("demo").innerHTML = "Page hostname is " + window.location.hostname;
+        });
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const emailInput = document.getElementById("email");
+        const emailError = document.getElementById("emailError");
+        const form = document.querySelector("form");
+
+        // Regular expression to check valid email format
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        form.addEventListener("submit", function (event) {
+            if (!emailPattern.test(emailInput.value)) {
+                event.preventDefault(); // Prevent form submission
+                emailError.classList.remove("hidden"); // Show the error message
+            } else {
+                emailError.classList.add("hidden"); // Hide the error message
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>

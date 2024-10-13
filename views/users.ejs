@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Table</title>
+    <style>
+        /* Style for the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for the button */
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Data</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+        <% data.forEach(user => { %>
+            <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+            </tr>
+        <% }); %>
+    </table>
+
+    <!-- Button to redirect to index.html page -->
+    <a href="/index.html" class="btn">Back to Home</a>
+</body>
+</html>

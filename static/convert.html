@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to Text Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            word-wrap: break-word;
+        }
+
+        #result p {
+            color: #333;
+            font-size: 16px;
+            white-space: pre-wrap; /* Preserves formatting of text */
+        }
+
+        #download-link {
+            display: none;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #download-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Convert PDF to Text</h1>
+    <p>Select a PDF file and click "Convert" to transform it into text.</p>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" accept=".pdf" required>
+        <br>
+        <button type="submit">Convert</button>
+    </form>
+
+    <div id="result"></div>
+    <a id="download-link" href="#" download>Download Converted Text</a>
+</div>
+
+<script>
+    const form = document.getElementById('uploadForm');
+    const resultDiv = document.getElementById('result');
+    const downloadLink = document.getElementById('download-link');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent form submission
+
+        const fileInput = document.getElementById('fileInput');
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        try {
+            const response = await fetch('/convert-to-text', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Error converting PDF');
+            }
+
+            const data = await response.json();
+            if (data.filePath) {
+                resultDiv.innerHTML = `<p>PDF converted to text successfully!</p>`;
+                downloadLink.href = data.filePath;
+                downloadLink.style.display = 'block';
+            } else {
+                resultDiv.innerHTML = `<p>Could not convert PDF. Please try again.</p>`;
+                downloadLink.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            resultDiv.innerHTML = `<p>Error converting PDF: ${error.message}</p>`;
+            downloadLink.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>
